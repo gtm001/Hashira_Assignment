@@ -14,8 +14,8 @@ public class SecretFinder {
             BigInteger term = y.get(i);
             for (int j = 0; j < k; j++) {
                 if (j != i) {
-                    BigInteger numerator = x.get(j).negate(); // -xj
-                    BigInteger denominator = x.get(i).subtract(x.get(j)); // xi - xj
+                    BigInteger numerator = x.get(j).negate(); 
+                    BigInteger denominator = x.get(i).subtract(x.get(j)); 
                     term = term.multiply(numerator).divide(denominator);
                 }
             }
@@ -26,7 +26,7 @@ public class SecretFinder {
     }
 
     public static BigInteger findSecretFromJson(String filename) throws Exception {
-        // Read JSON
+        
         JSONParser parser = new JSONParser();
         JSONObject data = (JSONObject) parser.parse(new FileReader(filename));
 
@@ -36,7 +36,6 @@ public class SecretFinder {
         List<BigInteger> xList = new ArrayList<>();
         List<BigInteger> yList = new ArrayList<>();
 
-        // Collect first k entries
         int count = 0;
         for (Object key : data.keySet()) {
             if (key.equals("keys")) continue;
@@ -53,7 +52,7 @@ public class SecretFinder {
             yList.add(y);
         }
 
-        // Use Lagrange interpolation at x=0
+
         return lagrangeInterpolation(xList, yList);
     }
 
